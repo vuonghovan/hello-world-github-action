@@ -20,25 +20,6 @@ jobs:
       WEBSITE_CONTENT_PATH: ${{ secrets.WEBSITE_CONTENT_PATH }}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - name: Install dependencies
-      run: dotnet restore
-      working-directory: ./src/HelloWorld
-    - name: Build with dotnet
-      run: dotnet publish src/HelloWorld/${{ env.PROJECT_DIRECTORY_PATH }}.csproj
-           --source https://api.nuget.org/v3/index.json
-           --configuration Release
-    - name: Stop Application Pool
-      shell: cmd
-      run: '"C:\azagent\A1\_work\_tasks\IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba\0.156.10\node_modules\webdeployment-common-v2\MSDeploy3.6\msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
-    - name: Deploy Application
-      shell: cmd
-      run: '"C:\azagent\A1\_work\_tasks\IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba\0.156.10\node_modules\webdeployment-common-v2\MSDeploy3.6\msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="%CD%\${{ env.PROJECT_DIRECTORY_PATH }}\bin\Release\netcoreapp3.1\" -dest:contentPath="${{ env.WEBSITE_CONTENT_PATH }}",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",authtype="Basic"'
-    - name: Start Application Pool
-      shell: cmd
-      run: '"C:\azagent\A1\_work\_tasks\IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba\0.156.10\node_modules\webdeployment-common-v2\MSDeploy3.6\msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StartAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'   
-    
+      - name: Stop Application Pool
+        shell: cmd
+        run: '"C:/azagent/A1/_work/_tasks/IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba/0.156.10/node_modules/webdeployment-common-v2/MSDeploy3.6/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
