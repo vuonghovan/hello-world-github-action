@@ -11,7 +11,7 @@ jobs:
 
     runs-on: windows-latest
     env:
-      PROJECT_DIRECTORY_PATH: "TestGithubActions"
+      PROJECT_DIRECTORY_PATH: "src/HelloWorld"
       IIS_SERVER_COMPUTER_NAME: ${{ secrets.IIS_SERVER_COMPUTER_NAME }}
       IIS_WEBSITE_NAME: ${{ secrets.IIS_WEBSITE_NAME }}
       IIS_SERVER_USERNAME: ${{ secrets.IIS_SERVER_USERNAME }}
@@ -29,10 +29,10 @@ jobs:
       run: dotnet restore
       working-directory: ./src/HelloWorld
     - name: Build with dotnet
-      run: dotnet publish
-           ${{ env.PROJECT_DIRECTORY_PATH }}/${{ env.PROJECT_DIRECTORY_PATH }}.csproj
+      run: dotnet publish src/${{ env.PROJECT_DIRECTORY_PATH }}/${{ env.PROJECT_DIRECTORY_PATH }}.csproj
            --source https://api.nuget.org/v3/index.json
            --configuration Release
+      working-directory: ./src/HelloWorld
     - name: Stop Application Pool
       shell: cmd
       run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
