@@ -22,4 +22,4 @@ jobs:
     steps:
       - name: Stop Application Pool
         shell: cmd
-        run: '"C:/azagent/A1/_work/_tasks/IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba/0.156.10/node_modules/webdeployment-common-v2/MSDeploy3.6/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="Hello-World",recycleMode="StopAppPool",computerName="202.92.6.94:3389/msdeploy.axd?site=Hello-World",username="administrator",password="qwer1234QWER",AuthType="Basic"'
+        run: '"C:\azagent\A1\_work\_tasks\IISWebAppDeploymentOnMachineGroup_1b467810-6725-4b6d-accd-886174c09bba\0.156.10\node_modules\webdeployment-common-v2\MSDeploy3.6\msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="Hello-World",recycleMode="StopAppPool",computerName="202.92.6.94/msdeploy.axd?site=Hello-World",username="administrator",password="qwer1234QWER",AuthType="Basic"'
